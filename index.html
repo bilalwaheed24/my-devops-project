@@ -1,1 +1,206 @@
-l
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Practice HTML & Git fundamentals. Built with semantic markup, accessibility, and modern CSS.">
+  <meta name="theme-color" content="#0f172a">
+  <title>HTML & Git Practice Lab</title>
+
+  <style>
+    /* 🧱 CSS Variables: Easy theming & maintenance */
+    :root {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-hover: #0ea5e9;
+      --success: #22c55e;
+      --warning: #eab308;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --radius: 0.5rem;
+      --spacing: 1.25rem;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+    }
+
+    /* 🧼 Reset & Base */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: var(--spacing);
+    }
+
+    /* 🌐 Layout */
+    .container { max-width: 800px; margin: 0 auto; }
+    header, main, footer { margin-bottom: 2rem; }
+
+    /* 🧭 Navigation */
+    nav ul {
+      display: flex; gap: 1rem; list-style: none; flex-wrap: wrap;
+      padding: 1rem 0; border-bottom: 1px solid var(--surface);
+    }
+    nav a {
+      color: var(--text-muted); text-decoration: none; font-weight: 500;
+      transition: color 0.2s ease;
+    }
+    nav a:hover, nav a:focus { color: var(--accent); outline: none; }
+
+    /* 📝 Typography & Components */
+    h1, h2, h3 { line-height: 1.2; margin-bottom: 0.75rem; }
+    h1 { font-size: 2rem; color: var(--accent); }
+    h2 { font-size: 1.5rem; border-left: 3px solid var(--accent); padding-left: 0.75rem; margin-top: 2rem; }
+    p { margin-bottom: 1rem; }
+
+    .card {
+      background: var(--surface); padding: 1.25rem; border-radius: var(--radius);
+      box-shadow: var(--shadow); margin-bottom: 1rem;
+    }
+    .tag {
+      display: inline-block; background: var(--accent); color: var(--bg);
+      padding: 0.2em 0.6em; font-size: 0.85rem; border-radius: 999px; font-weight: 600;
+    }
+
+    /* 💻 Code Blocks */
+    pre {
+      background: #0b1120; padding: 1rem; border-radius: var(--radius);
+      overflow-x: auto; font-family: var(--font-mono); font-size: 0.9rem;
+      border-left: 3px solid var(--accent);
+    }
+    code { font-family: var(--font-mono); }
+    p code, li code {
+      background: #334155; padding: 0.15em 0.4em; border-radius: 0.25em; font-size: 0.9em;
+    }
+
+    /* ✅ Interactive Practice Blocks */
+    details {
+      background: var(--surface); border-radius: var(--radius); padding: 1rem; margin-bottom: 1rem;
+      cursor: pointer; border: 1px solid transparent; transition: border 0.2s;
+    }
+    details[open] { border-color: var(--accent); }
+    summary { font-weight: 600; color: var(--accent); list-style: none; }
+    summary::marker { display: none; }
+    summary::before { content: "▶ "; transition: transform 0.2s; }
+    details[open] summary::before { content: "▼ "; }
+
+    /* 📱 Responsive & Accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+    }
+    @media (max-width: 600px) {
+      :root { --spacing: 1rem; }
+      h1 { font-size: 1.6rem; }
+      nav ul { gap: 0.75rem; }
+    }
+
+    /* 🦶 Footer */
+    footer {
+      text-align: center; padding-top: 2rem; border-top: 1px solid var(--surface);
+      color: var(--text-muted); font-size: 0.9rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>🛠️ HTML & Git Practice Lab</h1>
+      <nav aria-label="Main navigation">
+        <ul>
+          <li><a href="#git-fix">Fix Git Issues</a></li>
+          <li><a href="#html-practice">HTML Exercises</a></li>
+          <li><a href="#checklist">Practice Checklist</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section id="git-fix">
+        <h2>🔧 Fix Your Git Setup</h2>
+        <p class="card">
+          <span class="tag">DevOps Ready</span>
+          You're facing 3 common issues: empty folder, branch mismatch (`master` → `main`), and GitHub auth. Here’s the exact fix:
+        </p>
+
+        <details>
+          <summary>Step 1: Create & Save Your First File</summary>
+          <pre><code>touch index.html
+# OR use nano/vim:
+nano index.html
+# Paste HTML, then Ctrl+O → Enter → Ctrl+X</code></pre>
+        </details>
+
+        <details>
+          <summary>Step 2: Stage, Commit & Rename Branch</summary>
+          <pre><code>git add .
+git commit -m "First deployment file"
+
+# Rename local branch to 'main' (GitHub default)
+git branch -M main</code></pre>
+        </details>
+
+        <details>
+          <summary>Step 3: Push with Modern Auth (PAT or SSH)</summary>
+          <pre><code># Replace YOUR_TOKEN with your GitHub Personal Access Token
+git remote add origin https://<YOUR_TOKEN>@github.com/username/repo.git
+git push -u origin main
+
+# 💡 Pro Tip: Use SSH for passwordless pushes
+# ssh-keygen -t ed25519 -C "your_email@example.com"
+# Add public key to GitHub Settings → SSH Keys</code></pre>
+        </details>
+      </section>
+
+      <section id="html-practice">
+        <h2>📝 HTML Practice Challenges</h2>
+        <p>Open this file in your editor. Try modifying or adding the following:</p>
+
+        <article class="card">
+          <h3>1. Semantic Structure</h3>
+          <p>Replace generic `<div>` tags with `<header>`, `<main>`, `<section>`, `<article>`, and `<footer>`.</p>
+          <pre><code>&lt;!-- ✅ Good --&gt;
+&lt;main&gt;
+  &lt;section id="intro"&gt;...&lt;/section&gt;
+&lt;/main&gt;</code></pre>
+        </article>
+
+        <article class="card">
+          <h3>2. Accessible Forms</h3>
+          <p>Add a `<form>` with proper `<label for="">`, `<input>`, and `aria-describedby`.</p>
+          <pre><code>&lt;form&gt;
+  &lt;label for="email"&gt;Email&lt;/label&gt;
+  &lt;input type="email" id="email" name="email" required aria-required="true"&gt;
+&lt;/form&gt;</code></pre>
+        </article>
+
+        <article class="card">
+          <h3>3. Responsive Media</h3>
+          <p>Use `<picture>` or `<img loading="lazy" decoding="async">` for performance.</p>
+          <pre><code>&lt;img src="hero.webp" alt="Developer workspace" loading="lazy" width="800" height="450"&gt;</code></pre>
+        </article>
+      </section>
+
+      <section id="checklist">
+        <h2>✅ Pre-Commit Practice Checklist</h2>
+        <ul style="list-style: none; padding: 0;">
+          <li><input type="checkbox" id="c1"> <label for="c1">Page passes W3C Validator (no unclosed tags)</label></li>
+          <li><input type="checkbox" id="c2"> <label for="c2">Heading hierarchy is logical (`h1` → `h2` → `h3`)</label></li>
+          <li><input type="checkbox" id="c3"> <label for="c3">All images have descriptive `alt` text</label></li>
+          <li><input type="checkbox" id="c4"> <label for="c4">Contrast ratio ≥ 4.5:1 (use devtools Lighthouse)</label></li>
+          <li><input type="checkbox" id="c5"> <label for="c5">Git branch is `main`, not `master`</label></li>
+          <li><input type="checkbox" id="c6"> <label for="c6">`.gitignore` excludes `node_modules/`, `.DS_Store`, `*.log`</label></li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>
+      <p>Built with semantic HTML5, modern CSS variables, and accessibility-first principles. Practice makes production-ready.</p>
+      <p><small>💡 Senior Tip: Always run <code>html-validate .</code> or <code>npx htmlhint index.html</code> before committing.</small></p>
+    </footer>
+  </div>
+</body>
+</html>
