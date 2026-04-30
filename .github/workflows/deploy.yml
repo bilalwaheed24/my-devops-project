@@ -1,0 +1,38 @@
+name: Deploy to AWS EC2
+
+on:
+  push:
+    branches:
+      - main  # Jab bhi main branch par push hoga, ye chalega
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Deploy to EC2 via SSH
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            # Server ke andar ja kar ye commands chalengi
+            cd /var/www/html
+            # Agar permissions ka masla ho toh folder owner change karna par sakta hai
+            sudo chown -R ubuntu:ubuntu /var/www/html
+            # GitHub se latest code pull karna (Iske liye server pe git setup chahiye)
+            # Lekin asaan rasta ye hai ke hum direct file copy kar dein
+            echo "Deploying new version..."
+            
+      - name: Copy index.html to EC2
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          source: "index.html"
+          target: "/var/www/html/"
