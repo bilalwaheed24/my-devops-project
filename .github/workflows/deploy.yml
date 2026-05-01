@@ -11,10 +11,10 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4  # Updated from v3 to v4
 
       - name: Deploy to EC2 via SSH
-        uses: appleboy/ssh-action@v0.1.10
+        uses: appleboy/ssh-action@v1.0.3  # Updated to latest version
         with:
           host: ${{ secrets.HOST }}
           username: ubuntu
@@ -24,12 +24,10 @@ jobs:
             cd /var/www/html
             # Agar permissions ka masla ho toh folder owner change karna par sakta hai
             sudo chown -R ubuntu:ubuntu /var/www/html
-            # GitHub se latest code pull karna (Iske liye server pe git setup chahiye)
-            # Lekin asaan rasta ye hai ke hum direct file copy kar dein
             echo "Deploying new version..."
             
       - name: Copy index.html to EC2
-        uses: appleboy/scp-action@v0.1.4
+        uses: appleboy/scp-action@v0.1.7  # Updated to latest version
         with:
           host: ${{ secrets.HOST }}
           username: ubuntu
